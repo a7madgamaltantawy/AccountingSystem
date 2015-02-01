@@ -1,0 +1,51 @@
+class Account < ActiveRecord::Base
+  attr_accessible :name, :accounttype, :amount
+
+  def self.validate_transaction(account_1, account_2, amount)
+    @asset = 0
+    @expense = 0
+    @liability = 0
+    @accounts = Account.all
+    @first_account = self.find_by_id(account_1)
+    @second_account = self.find_by_id(account_2)
+
+    @accounts.each do |account|
+      if (account.accounttype == "Asset")
+        @asset += account.amount.to_i
+      elsif (account.accounttype == "Expense")
+        @expense += account.amount.to_i
+      elsif (account.accounttype == "Liability")
+        @liability += account.amount.to_i
+      end
+    end
+
+    if (@first_account.accounttype == "Asset")
+        @asset -= amount.to_i
+    elsif (@first_account.accounttype == "Expense")
+        @expense -= amount.to_i
+    elsif (@first_account.accounttype == "Liability")
+        @liability -= amount.to_i
+    end
+
+    if (@second_account.accounttype == "Asset")
+        @asset += amount.to_i
+    elsif (@second_account.accounttype == "Expense")
+        @expense += amount.to_i
+    elsif (@second_account.accounttype == "Liability")
+        @liability += amount.to_i
+    end
+
+    @equity= (@asset - @expense - @liability)
+
+    if ( (@asset - @expense - @liability - @equity) == 0 )
+        Account.find_by_id(account_1).update_attributes(:amount => (@first_account.amount.to_i - amount.to_i))
+
+        Account.find_by_id(account_2).update_attributes(:amount => (amount.to_i + @second_account.amount.to_i))
+
+      return true
+    else
+      return false
+    end
+  end
+
+end

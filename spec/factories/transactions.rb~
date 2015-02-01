@@ -1,0 +1,8 @@
+FactoryGirl.define do
+  factory :transaction do
+    first_direction "To"
+    first_account_id 1
+    to 1
+  end
+
+end

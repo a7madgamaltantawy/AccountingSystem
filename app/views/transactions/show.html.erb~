@@ -1,0 +1,24 @@
+<h1>Accounting Pro</h1>
+
+<div id="wrapper">
+<h2>Transaction Details</h2>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h3>From: <%= @transaction.first_account_id %></h3>
+</p>
+
+<p>
+  <h3>To: <%= @transaction.second_account_id %></h3>
+</p>
+
+<p>
+  <h3>Amount:
+  <%= @transaction.amount %>
+</h3>
+</p>
+
+
+<%= link_to 'Back', :back %>
+
+</div>

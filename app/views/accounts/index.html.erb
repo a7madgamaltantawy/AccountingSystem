@@ -1,0 +1,39 @@
+<h1>Accounting System</h1>
+<div id="wrapper">
+<h2>Balance Sheet</h2>
+
+<%= link_to 'New Account', new_account_path %>&nbsp|&nbsp
+<%= link_to 'New Transaction', new_transaction_path %>&nbsp|&nbsp
+<%= link_to 'Transaction Log', transactions_path %>
+<br/>
+<br/>
+<br/>
+
+<table id="keywords" cellspacing="1" cellpadding="1">
+
+
+
+  <tr>
+    <th><span style="float:left;font-weight:bold;">Name</span></th>
+    <th><span style="float:left;font-weight:bold;">Type</span></th>
+    <th><span style="float:left;font-weight:bold;">Value</span></th>
+  </tr>
+
+<% @accounts.each do |account| %>
+  <tr>
+    <td class="lalign"><%= account.name %></td>
+    <td class="lalign"><%= account.accounttype %></td>
+    <td class="lalign"><%= account.amount %></td>
+    <td class="lalign"><%= link_to 'Show', account %></td>
+    <td class="lalign"><%= link_to 'Edit', edit_account_path(account) %></td>
+  </tr>
+<% end %>
+ <tr>
+    <td class="footer"><span style="float:left;font-weight:bold;">Equity</span></th>
+    <td class="footer"><span style="float:left;">Assets - Liabilities</span></th>
+    <td class="footer"><span style="float:left;font-weight:bold;"><%= @equity%></span></th>
+</tr>
+</table>
+
+
+</div>

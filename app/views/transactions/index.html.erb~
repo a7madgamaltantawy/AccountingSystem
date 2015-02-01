@@ -1,0 +1,32 @@
+<h1>Accounting Pro</h1>
+<div id="wrapper">
+<h2>Transactions Log</h2>
+
+<%= link_to 'New Account', new_account_path %>&nbsp|&nbsp
+<%= link_to 'New Transaction', new_transaction_path %>&nbsp|&nbsp
+<%= link_to 'Balance Sheet', accounts_path %>
+
+<br/>
+<br/>
+
+<table id="keywords" cellspacing="1" cellpadding="1">
+  <tr>
+    <th><span style="float:left;font-weight:bold;">From</span></th>
+    <th><span style="float:left;font-weight:bold;">To</span></th>
+    <th><span style="float:left;font-weight:bold;">Amount</span></th>
+    <th><span style="float:left;font-weight:bold;">Date</span></th>
+  </tr>
+
+<% @transactions.each do |transaction| %>
+  <tr>
+    <td class="lalign"><%= Account.find_by_id(transaction.first_account_id).name %></td>
+    <td class="lalign"><%= Account.find_by_id(transaction.second_account_id).name %></td>
+    <td class="lalign"><%= transaction.amount %></td>
+    <td class="lalign"><%= transaction.created_at %></td>
+    <td class="lalign"><%= link_to 'Show', transaction %></td>
+  </tr>
+<% end %>
+</table>
+
+
+

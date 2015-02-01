@@ -1,0 +1,40 @@
+Feature: validate of the balance sheet parameters
+ 
+  As a company owner
+  So that I can quickly make transactions between accounts
+  I want to ensure that all transactions adhere to the validation rule above
+
+Background: accounts have been added to database
+
+  Given the following accounts exist:	
+  | name                 | accounttype | amount       |
+  | Cash                 | Asset       | 0            |
+  | Bank                 | Asset       | 0            |
+  | Accounts Receivable  | Asset       | 0            |
+  | Accounts Payable     | Liability   | 0            |
+  | Debt                 | Liability   | 0            |
+  | Office Expenses      | Expense     | 0            |
+  | Capital              | Equity      | 0            |
+  | Revenue              | Equity      | 0            |
+  And I am on the AccPro home page
+
+Scenario: create a valid transaction 
+  When I follow "New Transaction"
+  Then I should be on the new transaction page
+  When I select "Bank" from "transaction_first_account_id"
+  When I select "Capital" from "transaction_second_account_id"
+  When I fill in "transaction_amount" with "500"
+  When I press "Create Transaction"
+  Then I should be on the transactions page
+
+Scenario: try an invalid transaction from Bank to Bank
+  When I follow "New Transaction"
+  Then I should be on the new transaction page
+  When I select "Bank" from "transaction_first_account_id"
+  When I select "Bank" from "transaction_second_account_id"
+  When I fill in "transaction_amount" with "500"
+  When I press "Create Transaction"
+  Then I should be on the new transaction page
+
+
+
